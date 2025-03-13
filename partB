@@ -1,0 +1,76 @@
+def add_to_dict(scores_dict, content):
+    for line in content:
+        line_list = line.split()
+        if line_list[0] == "Name":
+            continue
+        if line_list[0] not in scores_dict:
+            scores_dict[line_list[0]] = int(line_list[1])
+        else:
+            scores_dict[line_list[0]] += int(line_list[1])
+
+
+def display_results(scores_dict):
+    scores_list = sorted(scores_dict.items())
+
+    print("{:10s} {:10s}".format("Name", "Total"))
+
+    for name, score in scores_list:
+        print(f"{name:10s} {score:<10d}")
+
+
+scores_dict = {}
+
+content = open("data1.txt", 'r')
+add_to_dict(scores_dict, content)
+
+content = open("data2.txt", 'r')
+add_to_dict(scores_dict, content)
+
+display_results(scores_dict)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# "{:10s} {:10s}".format("Name", "Total")
+# "{:10s} {:<10d}"
+#
+# scores_dict = {}
+#
+# content = open("data1.txt", 'r')
+#
+# for line in content:
+#     line_list = line.split()
+#     if line_list[0] == "Name":
+#         continue
+#     if line_list[0] not in scores_dict:
+#         scores_dict[line_list[0]] = int(line_list[1])
+#     else:
+#         scores_dict[line_list[0]] += int(line_list[1])
+#
+# content = open("data2.txt", 'r')
+#
+# for line in content:
+#     line_list = line.split()
+#     if line_list[0] == "Name":
+#         continue
+#     if line_list[0] not in scores_dict:
+#         scores_dict[line_list[0]] = int(line_list[1])
+#     else:
+#         scores_dict[line_list[0]] += int(line_list[1])
+#
+# scores_list = sorted(scores_dict.items())
+#
+# print("{:10s} {:10s}".format("Name", "Total"))
+#
+# for name, score in scores_list:
+#     print(f"{name:10s} {score:<10d}")
