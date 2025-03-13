@@ -1,0 +1,64 @@
+import string
+from operator import itemgetter
+
+
+def add_word(word_map, word):
+    # Adds word to dict if not in already, initializes with count 0
+    if word == "":
+        return
+    if word not in word_map:
+        word_map[word] = 0
+
+    # Adds 1 to count of occurrences of word
+    word_map[word] += 1
+
+
+def build_map(in_file, word_map):
+    for line in in_file:
+
+        # creates list of words
+        word_list = line.split()
+        for i in range(len(word_list)):
+            word_list[i] = word_list[i].lower()
+
+        for word in word_list:
+            # adds word to map
+            word = word.strip().strip(string.punctuation)
+            add_word(word_map, word)
+
+
+def display_map(word_map):
+    # prints out the map
+    freq_list = sorted(word_map.items(), key=itemgetter(0))
+    freq_list = sorted(freq_list, key=itemgetter(1), reverse = True)
+
+    print("\n{:15s}{:5s}".format("Word", "Count"))
+    print("-" * 20)
+    for item in freq_list:
+        print("{:15s}{:>5d}".format(item[0], item[1]))
+
+
+def open_file():
+    file_exists = False
+
+    while not file_exists:
+        try:
+            file_name = input(":~Enter file name ~:")
+            fp = open(file_name, "r")
+            return fp
+
+        except FileNotFoundError:
+            print("\n*** unable to open file ***\n")
+
+
+def main():
+    word_map = {}
+    in_file = open_file()
+    print()
+    build_map(in_file, word_map)
+    display_map(word_map)
+    in_file.close()
+
+
+if __name__ == "__main__":
+    main()
